@@ -11,9 +11,8 @@ import pandas
 import random
 import smtplib
 
-MY_EMAIL = "ziko442@gmail.com"
-MY_USER = "d09a1bfff1a321"
-MY_PASSWORD = "578b5ce7b572f0"
+MY_EMAIL = "YOUR EMAIL"
+MY_PASSWORD = "YOUR PASSWORD"
 
 today = datetime.now()
 today_tuple = (today.month, today.day)
@@ -26,18 +25,12 @@ if today_tuple in birthdays_dict:
     with open(file_path) as letter_file:
         contents = letter_file.read()
         contents = contents.replace("[NAME]", birthday_person["name"])
-        contents = f"""\
-Subject: Hi Mailtrap
-To: {birthday_person["email"]}
-From: {MY_EMAIL}
 
-{contents}"""
-
-    with smtplib.SMTP("smtp.mailtrap.io", 2525) as connection:
+    with smtplib.SMTP("YOUR EMAIL PROVIDER SMTP SERVER ADDRESS") as connection:
         connection.starttls()
-        connection.login(MY_USER, MY_PASSWORD)
+        connection.login(MY_EMAIL, MY_PASSWORD)
         connection.sendmail(
             from_addr=MY_EMAIL,
             to_addrs=birthday_person["email"],
-            msg=contents
+            msg=f"Subject:Happy Birthday!\n\n{contents}"
         )
